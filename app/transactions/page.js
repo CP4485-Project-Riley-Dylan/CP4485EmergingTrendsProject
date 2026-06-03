@@ -20,7 +20,7 @@ export default function Page() {
           <h1>Transactions</h1>
           <p>All your financial activity in one place.</p>
           <button onClick={() => setIsOpen(true)}> + Add Transaction</button>
-          {isOpen && <AddTransactionModal />}
+          {isOpen && <AddTransactionModal onClose={() => setIsOpen(false)} />}
         </section>
         <section>
           <p>Income</p>
