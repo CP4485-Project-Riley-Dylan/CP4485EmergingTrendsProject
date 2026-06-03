@@ -1,4 +1,5 @@
 "use client";
+import AddTransactionModal from "@/components/AddTransactionModal";
 import { useState } from "react";
 
 export default function Page() {
@@ -19,7 +20,7 @@ export default function Page() {
           <h1>Transactions</h1>
           <p>All your financial activity in one place.</p>
           <button onClick={() => setIsOpen(true)}> + Add Transaction</button>
-          {/* {isOpen && <addTransaction></addTransaction>} */}
+          {isOpen && <AddTransactionModal />}
         </section>
         <section>
           <p>Income</p>
