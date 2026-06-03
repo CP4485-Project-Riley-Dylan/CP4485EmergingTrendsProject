@@ -1,12 +1,13 @@
 export default function Page() {
   return (
     <>
-    <header>
-      <h1>Transactions</h1>
-      <p>All your financial activity in one place.</p>
-    </header>
-      <main></main>
-      
+      <main>
+        <section className="welcome-section">
+          <h1>Transactions</h1>
+          <p>All your financial activity in one place.</p>
+          <button> + Add Transaction</button>
+        </section>
+      </main>
     </>
   )
 }
