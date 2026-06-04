@@ -2,61 +2,87 @@
 import AddTransactionModal from "@/components/AddTransactionModal";
 import { useState } from "react";
 
-export default function Page() {
-  //Tab logic
-  const [isOpen, setIsOpen] = useState(false);
+const TRANSACTIONS = [
+  ["Starbucks", "Food & Drink", "Today", 23.92],
+  ["Subway", "Food & Drink", "May 3", 31.65],
+  ["Netflix", "Entertainment", "May 2", 9.99],
+];
 
-  // Transactions (hardcoded)
-  const TRANSACTIONS = [
-    ["Starbucks", "Food & Drink", "Today", 23.92],
-    ["Subway", "Food & Drink", "May 3", 31.65],
-    ["Netflix", "Entertainment", "May 2", 9.99]
-  ]
-  //Data affected by transations
+export default function Page() {
+  const [isOpen, setIsOpen] = useState(false);
   const [income, setIncome] = useState("$0.00");
   const [expenses, setExpenses] = useState("$0.00");
   const [net, setNet] = useState("$0.00");
 
   return (
     <>
-      <main>
-        <section className="welcome-section">
-          <h1>Transactions</h1>
-          <p>All your financial activity in one place.</p>
-          <button onClick={() => setIsOpen(true)}> + Add Transaction</button>
+      <main className="ml-64 min-h-screen bg-background text-foreground p-6 lg:p-8">
+
+        {/* Header */}
+        <section className="flex items-center justify-between mb-8">
+          <div>
+            <h1>Transactions</h1>
+            <p className="text-sm text-muted-foreground mt-1">All your financial activity in one place.</p>
+          </div>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="bg-primary hover:opacity-90 text-primary-foreground text-sm px-4 py-2.5 rounded-lg transition-opacity"
+          >
+            + Add Transaction
+          </button>
           {isOpen && <AddTransactionModal onClose={() => setIsOpen(false)} />}
         </section>
-        <section>
-          <p>Income</p>
-          <p>{income}</p>
-          <p>Expenses</p>
-          <p>{expenses}</p>
-          <p>Net</p>
-          <p>{net}</p>
+
+        {/* Summary Strip */}
+        <section className="grid grid-cols-3 gap-4 mb-8">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Income</p>
+            <p className="text-xl font-semibold text-primary">{income}</p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Expenses</p>
+            <p className="text-xl font-semibold text-destructive">{expenses}</p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Net</p>
+            <p className="text-xl font-semibold text-foreground">{net}</p>
+          </div>
         </section>
-        <section>
-          <table>
+
+        {/* Transactions Table */}
+        <section className="bg-card border border-border rounded-lg overflow-hidden">
+          <table className="w-full text-sm">
             <thead>
-              <tr>
-                <th>Transaction</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Amount</th>
+              <tr className="border-b border-border">
+                <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Transaction</th>
+                <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Category</th>
+                <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Date</th>
+                <th className="text-right text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Amount</th>
               </tr>
             </thead>
             <tbody>
               {TRANSACTIONS.map((transaction, index) => (
-                <tr key={index}>
-                  <td>{transaction[0]}</td>
-                  <td>{transaction[1]}</td>
-                  <td>{transaction[2]}</td>
-                  <td>{transaction[3]}</td>
+                <tr
+                  key={index}
+                  className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
+                >
+                  <td className="px-6 py-4 font-medium text-foreground">{transaction[0]}</td>
+                  <td className="px-6 py-4">
+                    <span className="bg-secondary text-secondary-foreground text-xs px-2.5 py-1 rounded-full">
+                      {transaction[1]}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-muted-foreground">{transaction[2]}</td>
+                  <td className="px-6 py-4 text-right font-semibold text-destructive">
+                    ${transaction[3].toFixed(2)}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </section>
+
       </main>
     </>
-  )
+  );
 }
