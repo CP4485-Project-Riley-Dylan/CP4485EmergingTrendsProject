@@ -81,7 +81,6 @@ export default function Page() {
             </tbody>
           </table>
         </section>
-
       </main>
     </>
   );
