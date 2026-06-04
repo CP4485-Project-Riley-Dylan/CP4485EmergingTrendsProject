@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CATEGORIES } from "@/lib/categories";
 
 export default function AddTransactionModal({ onClose }) {
   const [transactionType, setTransactionType] = useState("");
@@ -54,16 +55,11 @@ export default function AddTransactionModal({ onClose }) {
           Category
           <select>
             {/* Hardcoded until functionality to add categories exists. */}
-            <option value="Income">💼 Income</option>
-            <option value="Groceries">🛒 Groceries</option>
-            <option value="Food &amp; Drink">🍽️ Food &amp; Drink</option>
-            <option value="Transport">🚗 Transport</option>
-            <option value="Housing">🏠 Housing</option>
-            <option value="Health">💊 Health</option>
-            <option value="Entertainment">🎬 Entertainment</option>
-            <option value="Shopping">📦 Shopping</option>
-            <option value="Utilities">💡 Utilities</option>
-            <option value="Other">📁 Other</option>
+            {CATEGORIES.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
           </select>
         </label>
         <label>
@@ -80,16 +76,19 @@ export default function AddTransactionModal({ onClose }) {
           <input
             type="date" />
         </label>
-        <button
-          type="button"
-          onClick={onClose}>
-          Cancel
-        </button>
-        <button
-          type="submit"
-          onClick={onClose}>
-          Add Transaction
-        </button>
+        {/* Bottom buttons */}
+        <div>
+          <button
+            type="button"
+            onClick={onClose}>
+            Cancel
+          </button>
+          <button
+            type="submit"
+            onClick={onClose}>
+            Add Transaction
+          </button>
+        </div>
       </form>
     </>
   )
