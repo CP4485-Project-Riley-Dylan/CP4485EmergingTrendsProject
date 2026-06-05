@@ -21,7 +21,7 @@ export default function Navbar() {
           href="/"
           className="block rounded-xl px-4 py-3 text-sm font-medium transition hover:bg-slate-800/90"
         >
-          logout
+          Logout
         </Link>
       </div>
     </nav>
