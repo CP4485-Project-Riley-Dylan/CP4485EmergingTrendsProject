@@ -1,7 +1,12 @@
 import DataCard from "@/components/DataCard"
+import { useState } from "react"
 
 export default function analytics() {
-    // Get transaction data
+    // Variable initialization
+    const [averageMonthlySpend, setAverageMonthlySpend] = useState("$0.00");
+
+    // Get data card values
+    // function setAverageMonthlySpend()
 
     // Do stuff with it (savings rate, expenses etc over time)
 
@@ -18,6 +23,9 @@ export default function analytics() {
             </section>
 
             {/* Data cards */}
+            <section>
+              { DataCard("AVERAGE MONTHLY SPEND", )}
+            </section>
           </main>
         </>
     )

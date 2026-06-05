@@ -1,12 +1,7 @@
 "use client";
 import AddTransactionModal from "@/components/AddTransactionModal";
+import { TRANSACTIONS } from "@/lib/transactions";
 import { useState } from "react";
-
-const TRANSACTIONS = [
-  ["Starbucks", "Food & Drink", "Today", 23.92],
-  ["Subway", "Food & Drink", "May 3", 31.65],
-  ["Netflix", "Entertainment", "May 2", 9.99],
-];
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
