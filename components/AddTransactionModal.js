@@ -123,7 +123,6 @@ export default function AddTransactionModal({ onClose }) {
               Add Transaction
             </button>
           </div>
-
         </form>
       </div>
     </div>

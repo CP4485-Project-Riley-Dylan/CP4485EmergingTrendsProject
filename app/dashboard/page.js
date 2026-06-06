@@ -1,11 +1,8 @@
+import { TRANSACTIONS } from "@/lib/transactions";
+
 export default async function Page() {
   const response = await fetch('http://localhost:3000/api/user');
   const data = await response.json();
-  const transactions = [
-    ["Starbucks", "Food & Drink", "Today", 23.92],
-    ["Subway", "Food & Drink", "May 3", 31.65],
-    ["Netflix", "Entertainment", "May 2", 9.99]
-  ];
 
   return (
     <main className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
@@ -33,14 +30,14 @@ export default async function Page() {
           </button>
         </div>
         <ul className="space-y-3">
-          {transactions.map((item, index) => (
+          {TRANSACTIONS.map((transaction, index) => (
             <li key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-2 sm:px-3 py-3 rounded-xl hover:bg-muted transition-colors cursor-default">
               <div className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">{item[0]}</span>
-                <span className="text-xs sm:text-sm text-muted-foreground">{item[1]}</span>
+                <span className="font-semibold text-foreground">{transaction.name}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground">{transaction.category}</span>
               </div>
-              <div className="text-xs sm:text-sm text-muted-foreground">{item[2]}</div>
-              <span className="font-mono font-semibold text-sm text-foreground sm:ml-auto">${item[3]}</span>
+              <div className="text-xs sm:text-sm text-muted-foreground">{transaction.date}</div>
+              <span className="font-mono font-semibold text-sm text-foreground sm:ml-auto">${transaction.amount.toFixed(2)}</span>
             </li>
           ))}
         </ul>
