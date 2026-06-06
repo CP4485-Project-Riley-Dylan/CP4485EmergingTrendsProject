@@ -1,5 +1,7 @@
+"use client";
 import DataCard from "@/components/DataCard"
 import { useState } from "react"
+import BudgetVsExpenses from "@/components/BudgetVsExpenses";
 
 export default function analytics() {
     // Variable initialization
@@ -25,6 +27,9 @@ export default function analytics() {
             {/* Data cards */}
             <section>
               { DataCard("AVERAGE MONTHLY SPEND", )}
+            </section>
+            <section>
+              <BudgetVsExpenses />
             </section>
           </main>
         </>
