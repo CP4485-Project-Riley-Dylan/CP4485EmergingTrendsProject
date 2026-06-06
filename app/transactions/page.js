@@ -62,15 +62,15 @@ export default function Page() {
                     key={index}
                     className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
                   >
-                    <td className="px-6 py-4 font-medium text-foreground">{transaction[0]}</td>
+                    <td className="px-6 py-4 font-medium text-foreground">{transaction.name}</td>
                     <td className="px-6 py-4">
                       <span className="bg-secondary text-secondary-foreground text-xs px-2.5 py-1 rounded-full">
-                        {transaction[1]}
+                        {transaction.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-muted-foreground">{transaction[2]}</td>
+                    <td className="px-6 py-4 text-muted-foreground">{transaction.date}</td>
                     <td className="px-6 py-4 text-right font-semibold text-destructive">
-                      ${transaction[3].toFixed(2)}
+                      ${transaction.amount.toFixed(2)}
                     </td>
                   </tr>
                 ))}
