@@ -1,5 +1,6 @@
 import connectDB from '@/lib/mongodb'
 
+// Visit http://localhost:3000/api/test-db to test if you can get your db connect URI.
 export async function GET() {
     const uri = connectDB()
 
