@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CATEGORIES } from "@/lib/categories";
+import {addTransaction} from "@/lib/actions";
 
 export default function AddTransactionModal({ onClose }) {
   const [transactionType, setTransactionType] = useState("");
@@ -21,7 +22,7 @@ export default function AddTransactionModal({ onClose }) {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" action={addTransaction}>
 
           {/* Type Toggle */}
           <div>
@@ -76,7 +77,7 @@ export default function AddTransactionModal({ onClose }) {
           {/* Category */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm text-muted-foreground">Category</label>
-            <select className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+            <select name="category" className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
                   {cat.label}
@@ -90,6 +91,7 @@ export default function AddTransactionModal({ onClose }) {
             <div className="flex flex-col gap-1.5 flex-1">
               <label className="text-sm text-muted-foreground">Amount ($)</label>
               <input
+                name="amount"
                 type="number"
                 min="0"
                 step="0.01"
@@ -100,6 +102,7 @@ export default function AddTransactionModal({ onClose }) {
             <div className="flex flex-col gap-1.5 flex-1">
               <label className="text-sm text-muted-foreground">Date</label>
               <input
+                name="date"
                 type="date"
                 className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
@@ -117,7 +120,7 @@ export default function AddTransactionModal({ onClose }) {
             </button>
             <button
               type="submit"
-              onClick={onClose}
+
               className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm hover:opacity-90 transition-opacity"
             >
               Add Transaction
