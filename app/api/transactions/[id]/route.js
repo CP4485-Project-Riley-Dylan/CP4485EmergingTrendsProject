@@ -19,8 +19,11 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
-
+        let client = await clientPromise;
+        let db = client.db("budgetApp");
+        await db.collection("transactions").deleteOne({_id: new ObjectId(params.id)});
+        return NextResponse.json( {message:"Deleted"} );
     } catch (e) {
-        
+        return NextReponse.json({ error: e.message }, { status: 500 })
     }
 }
