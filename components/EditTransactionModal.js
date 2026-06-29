@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CATEGORIES } from "@/lib/categories";
-import { addTransaction } from "@/lib/actions";
+import { editTransaction } from "@/lib/actions";
 
-export default function AddTransactionModal({ onClose }) {
+export default function EditTransactionModal({ onClose }) {
   const [transactionType, setTransactionType] = useState("");
 
   return (
@@ -11,7 +11,7 @@ export default function AddTransactionModal({ onClose }) {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2>Add Transaction</h2>
+          <h2>Edit Transaction</h2>
           <button
             type="button"
             onClick={onClose}
@@ -22,7 +22,7 @@ export default function AddTransactionModal({ onClose }) {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-5" action={addTransaction}>
+        <form className="flex flex-col gap-5" action={editTransaction}>
 
           {/* Type Toggle */}
           <div>
@@ -123,7 +123,7 @@ export default function AddTransactionModal({ onClose }) {
 
               className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm hover:opacity-90 transition-opacity"
             >
-              Add Transaction
+              Save
             </button>
           </div>
         </form>
