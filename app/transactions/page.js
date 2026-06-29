@@ -3,11 +3,15 @@ import AddTransactionModal from "@/components/AddTransactionModal";
 import { TRANSACTIONS } from "@/lib/transactions";
 import { useState } from "react";
 
-export default function Page() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [income, setIncome] = useState("$0.00");
-  const [expenses, setExpenses] = useState("$0.00");
-  const [net, setNet] = useState("$0.00");
+export default async function Page() {
+  let [isOpen, setIsOpen] = useState(false);
+  let [income, setIncome] = useState("$0.00");
+  let [expenses, setExpenses] = useState("$0.00");
+  let [net, setNet] = useState("$0.00");
+
+  {/*GET request fetch call (add [id] later once we have accounts)*/}
+  const response = await fetch("/api/transactions");
+  const data = await response.json();
 
   return (
     <>
