@@ -1,25 +1,26 @@
 "use client";
 import AddTransactionModal from "@/components/AddTransactionModal";
-import { TRANSACTIONS } from "@/lib/transactions";
 import { useState, useEffect } from "react";
 
-export default async function Page() {
+export default function Page() {
   let [isOpen, setIsOpen] = useState(false);
   let [income, setIncome] = useState("$0.00");
   let [expenses, setExpenses] = useState("$0.00");
   let [net, setNet] = useState("$0.00");
+  let [transactions, setTransactions] = useState([]);
 
   {/*GET request fetch call (add [id] later once we have accounts)*/ }
   const getTransactions = async () => {
     const response = await fetch("/api/transactions");
     const data = await response.json();
-    return data;
+    console.log(data)
+    setTransactions(data);
   }
 
   {/*Load transactions*/ }
   useEffect(() => {
     getTransactions();
-  });
+  }, []);
 
 
   return (
@@ -70,7 +71,7 @@ export default async function Page() {
                 </tr>
               </thead>
               <tbody>
-                {TRANSACTIONS.map((transaction, index) => (
+                {transactions.map((transaction, index) => (
                   <tr
                     key={index}
                     className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
