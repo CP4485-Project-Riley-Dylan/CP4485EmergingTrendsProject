@@ -1,13 +1,26 @@
 "use client";
 import AddTransactionModal from "@/components/AddTransactionModal";
-import { TRANSACTIONS } from "@/lib/transactions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Page() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [income, setIncome] = useState("$0.00");
-  const [expenses, setExpenses] = useState("$0.00");
-  const [net, setNet] = useState("$0.00");
+  let [isOpen, setIsOpen] = useState(false);
+  let [income, setIncome] = useState("$0.00");
+  let [expenses, setExpenses] = useState("$0.00");
+  let [net, setNet] = useState("$0.00");
+  let [transactions, setTransactions] = useState([]);
+
+  {/*GET request fetch call (add [id] later once we have accounts)*/ }
+  const getTransactions = async () => {
+    const response = await fetch("/api/transactions");
+    const data = await response.json();
+    setTransactions(data);
+  }
+
+  {/*Load transactions*/ }
+  useEffect(() => {
+    getTransactions();
+  }, []);
+
 
   return (
     <>
@@ -57,7 +70,7 @@ export default function Page() {
                 </tr>
               </thead>
               <tbody>
-                {TRANSACTIONS.map((transaction, index) => (
+                {transactions.map((transaction, index) => (
                   <tr
                     key={index}
                     className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"

@@ -1,5 +1,3 @@
-import { TRANSACTIONS } from "@/lib/transactions";
-
 export default async function Page() {
   const response = await fetch('http://localhost:3000/api/user');
   const data = await response.json();
@@ -29,7 +27,7 @@ export default async function Page() {
             View All
           </button>
         </div>
-        <ul className="space-y-3">
+        {/* <ul className="space-y-3">
           {TRANSACTIONS.map((transaction, index) => (
             <li key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-2 sm:px-3 py-3 rounded-xl hover:bg-muted transition-colors cursor-default">
               <div className="flex flex-col gap-1">
@@ -40,7 +38,7 @@ export default async function Page() {
               <span className="font-mono font-semibold text-sm text-foreground sm:ml-auto">${transaction.amount.toFixed(2)}</span>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </section>
     </main>
   );
