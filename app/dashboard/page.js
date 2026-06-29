@@ -1,11 +1,35 @@
-export default async function Page() {
-  const response = await fetch('http://localhost:3000/api/user');
-  const data = await response.json();
+"use client";
+import { useState, useEffect } from "react";
+
+export default function Page() {
+
+  const [user, setUser] = useState("");
+  let [transactions, setTransactions] = useState([]);
+
+  {/*GET request fetch call for user*/ }
+  const getUser = async () => {
+    const response = await fetch("/api/user");
+    const data = await response.json();
+    setUser(data);
+  }
+
+  {/*GET request fetch call (add [id] later once we have accounts)*/ }
+  const getTransactions = async () => {
+    const response = await fetch("/api/transactions");
+    const data = await response.json();
+    setTransactions(data);
+  }
+
+  {/*Load transactions*/ }
+  useEffect(() => {
+    getUser();
+    getTransactions();
+  }, []);
 
   return (
     <main className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
       <section className="mb-6 sm:mb-8">
-        <h1 className="font-bold text-2xl sm:text-3xl mb-1 text-foreground">Hello, {data.name}</h1>
+        <h1 className="font-bold text-2xl sm:text-3xl mb-1 text-foreground">Hello, {user.name}</h1>
         <p className="text-sm sm:text-base text-muted-foreground">Here's your financial overview.</p>
       </section>
 
@@ -27,8 +51,8 @@ export default async function Page() {
             View All
           </button>
         </div>
-        {/* <ul className="space-y-3">
-          {TRANSACTIONS.map((transaction, index) => (
+        <ul className="space-y-3">
+          {transactions.map((transaction, index) => (
             <li key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-2 sm:px-3 py-3 rounded-xl hover:bg-muted transition-colors cursor-default">
               <div className="flex flex-col gap-1">
                 <span className="font-semibold text-foreground">{transaction.name}</span>
@@ -38,7 +62,7 @@ export default async function Page() {
               <span className="font-mono font-semibold text-sm text-foreground sm:ml-auto">${transaction.amount.toFixed(2)}</span>
             </li>
           ))}
-        </ul> */}
+        </ul>
       </section>
     </main>
   );
