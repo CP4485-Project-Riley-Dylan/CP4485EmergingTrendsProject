@@ -3,7 +3,8 @@ import AddTransactionModal from "@/components/AddTransactionModal";
 import { useState, useEffect } from "react";
 
 export default function Page() {
-  let [isOpen, setIsOpen] = useState(false);
+  let [addTransactionModalOpen, setAddTransactionModalOpen] = useState(false);
+  let [editTransactionModelOpen, setEditTransactionModalOpen] = useState(false);
   let [income, setIncome] = useState("$0.00");
   let [expenses, setExpenses] = useState("$0.00");
   let [net, setNet] = useState("$0.00");
@@ -33,12 +34,12 @@ export default function Page() {
             <p className="text-sm text-muted-foreground mt-1">All your financial activity in one place.</p>
           </div>
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => setAddTransactionModalOpen(true)}
             className="bg-primary hover:opacity-90 text-primary-foreground text-sm px-4 py-2.5 rounded-lg transition-opacity"
           >
             + Add Transaction
           </button>
-          {isOpen && <AddTransactionModal onClose={() => setIsOpen(false)} />}
+          {addTransactionModalOpen && <AddTransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
         </section>
 
         {/* Summary Strip */}
@@ -87,7 +88,10 @@ export default function Page() {
                       ${transaction.amount.toFixed(2)}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="grayscale brightness-0">✏️</button>
+                      <button
+                        onClick={() => setEditTransactionModalOpen(true)}
+                        className="grayscale brightness-0">✏️
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -95,6 +99,7 @@ export default function Page() {
             </table>
           </div>
         </section>
+        {editTransactionModelOpen && <EditTransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
       </main>
     </>
   );
