@@ -13,7 +13,6 @@ export default function Page() {
   const getTransactions = async () => {
     const response = await fetch("/api/transactions");
     const data = await response.json();
-    console.log(data)
     setTransactions(data);
   }
 
