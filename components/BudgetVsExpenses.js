@@ -1,6 +1,5 @@
 import { BarChart, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts';
 import { RechartsDevtools } from '@recharts/devtools';
-import { TRANSACTIONS } from '@/lib/transactions';
 
 // #region Sample data
 const data = [

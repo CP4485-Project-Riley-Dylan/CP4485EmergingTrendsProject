@@ -67,6 +67,7 @@ export default function Page() {
                   <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Category</th>
                   <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Date</th>
                   <th className="text-right text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Amount</th>
+                  <th className="text-right text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -84,6 +85,9 @@ export default function Page() {
                     <td className="px-6 py-4 text-muted-foreground">{transaction.date}</td>
                     <td className="px-6 py-4 text-right font-semibold text-destructive">
                       ${transaction.amount.toFixed(2)}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <button className="grayscale brightness-0">✏️</button>
                     </td>
                   </tr>
                 ))}
