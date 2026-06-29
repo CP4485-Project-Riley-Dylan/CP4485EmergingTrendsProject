@@ -3,8 +3,8 @@ import TransactionModal from "@/components/TransactionModal";
 import { useState, useEffect } from "react";
 
 export default function Page() {
-  let [addTransactionModalOpen, setAddTransactionModalOpen] = useState(false);
-  let [editTransactionModelOpen, setEditTransactionModalOpen] = useState(false);
+  let [transactionModalOpen, setTransactionModalOpen] = useState(false);
+  let [editingTransaction, setEditingTransaction] = useState(false);
   let [income, setIncome] = useState("$0.00");
   let [expenses, setExpenses] = useState("$0.00");
   let [net, setNet] = useState("$0.00");
@@ -22,6 +22,21 @@ export default function Page() {
     getTransactions();
   }, []);
 
+  const openAdd = () => {
+    setEditingTransaction(false);
+    setTransactionModalOpen(true);
+  }
+
+  const openEdit = (transaction) => {
+    setEditingTransaction(transaction);
+    setTransactionModalOpen(true);
+  }
+
+  const closeTransactionModal = () => {
+    setTransactionModalOpen(false);
+    setEditingTransaction(false);
+  }
+
 
   return (
     <>
@@ -34,12 +49,11 @@ export default function Page() {
             <p className="text-sm text-muted-foreground mt-1">All your financial activity in one place.</p>
           </div>
           <button
-            onClick={() => setAddTransactionModalOpen(true)}
+            onClick={openAdd}
             className="bg-primary hover:opacity-90 text-primary-foreground text-sm px-4 py-2.5 rounded-lg transition-opacity"
           >
             + Add Transaction
           </button>
-          {addTransactionModalOpen && <TransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
         </section>
 
         {/* Summary Strip */}
@@ -89,7 +103,7 @@ export default function Page() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button
-                        onClick={() => setEditTransactionModalOpen(true)}
+                        onClick={() => openEdit(transaction)}
                         className="grayscale brightness-0">✏️
                       </button>
                     </td>
@@ -99,7 +113,12 @@ export default function Page() {
             </table>
           </div>
         </section>
-        {editTransactionModelOpen && <EditTransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
+        {transactionModalOpen && (
+          <TransactionModal
+            editing={editingTransaction}
+            onClose={closeTransactionModal}
+          />
+        )}
       </main>
     </>
   );

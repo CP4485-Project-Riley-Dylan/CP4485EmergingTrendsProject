@@ -11,7 +11,7 @@ export default function TransactionModal({ onClose, editing }) {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2>{editing ? "Add Transaction" : "Edit Transaction"}</h2>
+          <h2>{editing ? "Edit Transaction" : "Add Transaction"}</h2>
           <button
             type="button"
             onClick={onClose}
