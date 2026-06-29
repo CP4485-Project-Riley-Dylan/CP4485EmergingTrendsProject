@@ -1,7 +1,7 @@
 "use client";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import { TRANSACTIONS } from "@/lib/transactions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default async function Page() {
   let [isOpen, setIsOpen] = useState(false);
@@ -9,9 +9,18 @@ export default async function Page() {
   let [expenses, setExpenses] = useState("$0.00");
   let [net, setNet] = useState("$0.00");
 
-  {/*GET request fetch call (add [id] later once we have accounts)*/}
-  const response = await fetch("/api/transactions");
-  const data = await response.json();
+  {/*GET request fetch call (add [id] later once we have accounts)*/ }
+  const getTransactions = async () => {
+    const response = await fetch("/api/transactions");
+    const data = await response.json();
+    return data;
+  }
+
+  {/*Load transactions*/ }
+  useEffect(() => {
+    getTransactions();
+  });
+
 
   return (
     <>
