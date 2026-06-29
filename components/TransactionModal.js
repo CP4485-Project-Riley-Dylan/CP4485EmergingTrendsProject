@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CATEGORIES } from "@/lib/categories";
-import { editTransaction } from "@/lib/actions";
+import { addTransaction, editTransaction } from "@/lib/actions";
 
-export default function EditTransactionModal({ onClose }) {
+export default function TransactionModal({ onClose, editing }) {
   const [transactionType, setTransactionType] = useState("");
 
   return (
@@ -11,7 +11,7 @@ export default function EditTransactionModal({ onClose }) {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2>Edit Transaction</h2>
+          <h2>{editing ? "Add Transaction" : "Edit Transaction"}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -22,8 +22,11 @@ export default function EditTransactionModal({ onClose }) {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-5" action={editTransaction}>
-
+        <form className="flex flex-col gap-5" action={editing ? editTransaction : addTransaction}>
+          {/* _id (not included in form, used for updating a transaction)*/}
+          {editing && (
+            <input type="hidden" name="_id" value={editing._id} />
+          )}
           {/* Type Toggle */}
           <div>
             <label className="text-sm text-muted-foreground mb-2 block">Type</label>
@@ -120,10 +123,9 @@ export default function EditTransactionModal({ onClose }) {
             </button>
             <button
               type="submit"
-
               className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm hover:opacity-90 transition-opacity"
             >
-              Save
+              {editing ? "Save" : "Add Transaction"}
             </button>
           </div>
         </form>

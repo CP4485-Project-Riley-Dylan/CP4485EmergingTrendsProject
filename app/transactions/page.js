@@ -1,5 +1,5 @@
 "use client";
-import AddTransactionModal from "@/components/AddTransactionModal";
+import TransactionModal from "@/components/TransactionModal";
 import { useState, useEffect } from "react";
 
 export default function Page() {
@@ -39,7 +39,7 @@ export default function Page() {
           >
             + Add Transaction
           </button>
-          {addTransactionModalOpen && <AddTransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
+          {addTransactionModalOpen && <TransactionModal onClose={() => setAddTransactionModalOpen(false)} />}
         </section>
 
         {/* Summary Strip */}
