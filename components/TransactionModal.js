@@ -3,7 +3,7 @@ import { CATEGORIES } from "@/lib/categories";
 import { addTransaction, editTransaction } from "@/lib/actions";
 
 export default function TransactionModal({ onClose, editing }) {
-  const [transactionType, setTransactionType] = useState("");
+  const [transactionType, setTransactionType] = useState(editing?.type || "");
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -73,6 +73,7 @@ export default function TransactionModal({ onClose, editing }) {
               type="text"
               name="description"
               placeholder="e.g. Whole Foods Market"
+              defaultValue={editing?.name || ""}
               className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
@@ -80,7 +81,7 @@ export default function TransactionModal({ onClose, editing }) {
           {/* Category */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm text-muted-foreground">Category</label>
-            <select name="category" className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+            <select name="category" defaultValue={editing?.category || ""} className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
                   {cat.label}
@@ -99,6 +100,7 @@ export default function TransactionModal({ onClose, editing }) {
                 min="0"
                 step="0.01"
                 placeholder="0.00"
+                defaultValue={editing?.amount || ""}
                 className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
@@ -107,6 +109,7 @@ export default function TransactionModal({ onClose, editing }) {
               <input
                 name="date"
                 type="date"
+                defaultValue={editing?.date || ""}
                 className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
