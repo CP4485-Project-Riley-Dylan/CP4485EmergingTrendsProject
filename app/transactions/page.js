@@ -35,6 +35,7 @@ export default function Page() {
   const closeTransactionModal = () => {
     setTransactionModalOpen(false);
     setEditingTransaction(false);
+    getTransactions();
   }
 
 
