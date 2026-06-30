@@ -19,8 +19,8 @@ export default function Page() {
 
   {/*DELETE request fetch call (add [id] later once we have accounts)*/ }
   const deleteTransaction = async (transaction) => {
-    await fetch(`api/transactions/${transaction._id}`, { method: DELETE });
-    getTransactions();
+    await fetch(`/api/transactions/${transaction._id}`, { method: "DELETE" });
+    await getTransactions();
 
   }
   {/*Load transactions*/ }

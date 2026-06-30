@@ -1,6 +1,6 @@
-import {NextReponse} from "next/server";
+import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
-import {ObjectId} from "mongodb";
+import { ObjectId } from "mongodb";
 
 export async function PUT(request, { params }) {
     try {
@@ -9,9 +9,9 @@ export async function PUT(request, { params }) {
         let db = client.db("budgetApp");
         await db.collection("transactions").updateOne(
             { _id: new ObjectId(params.id) },
-            { $set: body}
+            { $set: body }
         )
-        return NextResponse.json({message:"Updated"})
+        return NextResponse.json({ message: "Updated" })
     } catch (e) {
         return NextResponse.json({ error: e.message }, { status: 500 });
     }
@@ -19,11 +19,12 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
+        const id = await params;
         let client = await clientPromise;
         let db = client.db("budgetApp");
-        await db.collection("transactions").deleteOne({_id: new ObjectId(params.id)});
-        return NextResponse.json( {message:"Deleted"} );
+        await db.collection("transactions").deleteOne({ _id: new ObjectId(id.id) });
+        return NextResponse.json({ message: "Deleted" });
     } catch (e) {
-        return NextReponse.json({ error: e.message }, { status: 500 })
+        return NextResponse.json({ error: e.message }, { status: 500 })
     }
 }
