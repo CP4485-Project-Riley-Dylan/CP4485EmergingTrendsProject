@@ -20,6 +20,6 @@ export async function POST(request) {
         let result = await db.collection("transactions").insertOne(body);
         return NextResponse.json({ ...body, _id: result.insertedId }, { status: 201 })
     } catch (e) {
-        return NextResponse.json({ error: e.message }, {status: 500})
+        return NextResponse.json({ error: e.message }, { status: 500 })
     }
 }

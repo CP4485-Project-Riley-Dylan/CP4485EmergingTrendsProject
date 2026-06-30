@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { CATEGORIES } from "@/lib/categories";
-import {addTransaction} from "@/lib/actions";
+import { addTransaction, editTransaction } from "@/lib/actions";
 
-export default function AddTransactionModal({ onClose }) {
-  const [transactionType, setTransactionType] = useState("");
+export default function TransactionModal({ onClose, editing }) {
+  const [transactionType, setTransactionType] = useState(editing?.type || "");
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -11,7 +11,7 @@ export default function AddTransactionModal({ onClose }) {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2>Add Transaction</h2>
+          <h2>{editing ? "Edit Transaction" : "Add Transaction"}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -22,8 +22,11 @@ export default function AddTransactionModal({ onClose }) {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-5" action={addTransaction}>
-
+        <form className="flex flex-col gap-5" action={editing ? editTransaction : addTransaction}>
+          {/* _id (not included in form, used for updating a transaction)*/}
+          {editing && (
+            <input type="hidden" name="_id" value={editing._id} />
+          )}
           {/* Type Toggle */}
           <div>
             <label className="text-sm text-muted-foreground mb-2 block">Type</label>
@@ -70,6 +73,7 @@ export default function AddTransactionModal({ onClose }) {
               type="text"
               name="description"
               placeholder="e.g. Whole Foods Market"
+              defaultValue={editing?.name || ""}
               className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
@@ -77,7 +81,7 @@ export default function AddTransactionModal({ onClose }) {
           {/* Category */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm text-muted-foreground">Category</label>
-            <select name="category" className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+            <select name="category" defaultValue={editing?.category || ""} className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
                   {cat.label}
@@ -96,6 +100,7 @@ export default function AddTransactionModal({ onClose }) {
                 min="0"
                 step="0.01"
                 placeholder="0.00"
+                defaultValue={editing?.amount || ""}
                 className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
@@ -104,6 +109,7 @@ export default function AddTransactionModal({ onClose }) {
               <input
                 name="date"
                 type="date"
+                defaultValue={editing?.date || ""}
                 className="w-full rounded-lg border border-border bg-input-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
@@ -120,10 +126,9 @@ export default function AddTransactionModal({ onClose }) {
             </button>
             <button
               type="submit"
-
               className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm hover:opacity-90 transition-opacity"
             >
-              Add Transaction
+              {editing ? "Save" : "Add Transaction"}
             </button>
           </div>
         </form>

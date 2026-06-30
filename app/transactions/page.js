@@ -1,9 +1,10 @@
 "use client";
-import AddTransactionModal from "@/components/AddTransactionModal";
+import TransactionModal from "@/components/TransactionModal";
 import { useState, useEffect } from "react";
 
 export default function Page() {
-  let [isOpen, setIsOpen] = useState(false);
+  let [transactionModalOpen, setTransactionModalOpen] = useState(false);
+  let [editingTransaction, setEditingTransaction] = useState(false);
   let [income, setIncome] = useState("$0.00");
   let [expenses, setExpenses] = useState("$0.00");
   let [net, setNet] = useState("$0.00");
@@ -16,10 +17,32 @@ export default function Page() {
     setTransactions(data);
   }
 
+  {/*DELETE request fetch call (add [id] later once we have accounts)*/ }
+  const deleteTransaction = async (transaction) => {
+    await fetch(`/api/transactions/${transaction._id}`, { method: "DELETE" });
+    await getTransactions();
+
+  }
   {/*Load transactions*/ }
   useEffect(() => {
     getTransactions();
   }, []);
+
+  const openAdd = () => {
+    setEditingTransaction(false);
+    setTransactionModalOpen(true);
+  }
+
+  const openEdit = (transaction) => {
+    setEditingTransaction(transaction);
+    setTransactionModalOpen(true);
+  }
+
+  const closeTransactionModal = () => {
+    setTransactionModalOpen(false);
+    setEditingTransaction(false);
+    getTransactions();
+  }
 
 
   return (
@@ -33,12 +56,11 @@ export default function Page() {
             <p className="text-sm text-muted-foreground mt-1">All your financial activity in one place.</p>
           </div>
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={openAdd}
             className="bg-primary hover:opacity-90 text-primary-foreground text-sm px-4 py-2.5 rounded-lg transition-opacity"
           >
             + Add Transaction
           </button>
-          {isOpen && <AddTransactionModal onClose={() => setIsOpen(false)} />}
         </section>
 
         {/* Summary Strip */}
@@ -67,6 +89,7 @@ export default function Page() {
                   <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Category</th>
                   <th className="text-left text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Date</th>
                   <th className="text-right text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Amount</th>
+                  <th className="text-right text-xs text-muted-foreground uppercase tracking-wide px-6 py-4 font-medium">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,12 +108,28 @@ export default function Page() {
                     <td className="px-6 py-4 text-right font-semibold text-destructive">
                       ${transaction.amount.toFixed(2)}
                     </td>
+                    <td className="px-6 py-4 text-right">
+                      <button
+                        onClick={() => openEdit(transaction)}
+                        className="grayscale brightness-0">✏️
+                      </button>
+                      <button
+                        onClick={() => deleteTransaction(transaction)}
+                        className="grayscale brightness-0">🗑️
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </section>
+        {transactionModalOpen && (
+          <TransactionModal
+            editing={editingTransaction}
+            onClose={closeTransactionModal}
+          />
+        )}
       </main>
     </>
   );
