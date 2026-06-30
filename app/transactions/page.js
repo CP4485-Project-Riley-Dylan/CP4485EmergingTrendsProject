@@ -17,6 +17,12 @@ export default function Page() {
     setTransactions(data);
   }
 
+  {/*DELETE request fetch call (add [id] later once we have accounts)*/ }
+  const deleteTransaction = async (transaction) => {
+    await fetch(`api/transactions/${transaction._id}`, { method: DELETE });
+    getTransactions();
+
+  }
   {/*Load transactions*/ }
   useEffect(() => {
     getTransactions();
@@ -106,6 +112,10 @@ export default function Page() {
                       <button
                         onClick={() => openEdit(transaction)}
                         className="grayscale brightness-0">✏️
+                      </button>
+                      <button
+                        onClick={() => deleteTransaction(transaction)}
+                        className="grayscale brightness-0">🗑️
                       </button>
                     </td>
                   </tr>
