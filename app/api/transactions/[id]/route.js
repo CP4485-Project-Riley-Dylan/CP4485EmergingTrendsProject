@@ -4,11 +4,12 @@ import { ObjectId } from "mongodb";
 
 export async function PUT(request, { params }) {
     try {
+        const id = await params;
         let body = await request.json();
         let client = await clientPromise;
         let db = client.db("budgetApp");
         await db.collection("transactions").updateOne(
-            { _id: new ObjectId(params.id) },
+            { _id: new ObjectId(id.id) },
             { $set: body }
         )
         return NextResponse.json({ message: "Updated" })
