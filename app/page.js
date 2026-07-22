@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { signInWithGoogle } from '@/lib/actions';
 
 export default function Home() {
   return (
@@ -18,12 +18,14 @@ export default function Home() {
           <h5 className="text-sm sm:text-base font-normal text-[#6e7681] leading-relaxed mb-8">
             Sign in to your account to continue tracking your finances.
           </h5>
-          <Link
-            href="/dashboard"
-            className="w-full py-3 px-4 bg-white border border-[#d0d7de] rounded-xl text-sm sm:text-base font-medium text-[#24292f] flex items-center justify-center gap-2.5 hover:border-[#b0b8c0] transition-colors"
-          >
-            Continue with Google
-          </Link>
+          <form action={signInWithGoogle}>
+            <button
+              type="submit"
+              className="w-full py-3 px-4 bg-white border border-[#d0d7de] rounded-xl text-sm sm:text-base font-medium text-[#24292f] flex items-center justify-center gap-2.5 hover:border-[#b0b8c0] transition-colors"
+            >
+              Continue with Google
+            </button>
+          </form>
         </div>
       </div>
 
