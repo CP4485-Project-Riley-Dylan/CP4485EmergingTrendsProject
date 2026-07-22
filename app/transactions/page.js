@@ -1,4 +1,4 @@
-import TransactionsPage from "@/components/transactionsPage";
+import TransactionsPage from "@/components/TransactionsPage";
 import { getUserId } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
