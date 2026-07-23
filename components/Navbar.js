@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { signOut } from '@/lib/actions'
 
 export default function Navbar() {
   return (
@@ -23,12 +24,14 @@ export default function Navbar() {
         >
           Analytics
         </Link>
-        <Link
-          href="/"
-          className="block rounded-xl px-4 py-3 text-sm font-medium transition hover:bg-slate-800/90"
-        >
-          Logout
-        </Link>
+        <form action={signOut}>
+          <button
+            type="submit"
+            className="w-full text-left block rounded-xl px-4 py-3 text-sm font-medium transition hover:bg-slate-800/90 cursor-pointer"
+          >
+            Logout
+          </button>
+        </form>
       </div>
     </nav>
   )
