@@ -26,6 +26,7 @@ export const config = {
         '/transactions/:path*',
         '/analytics/:path*',
         '/api/user',
-        '/api/transactions/:path*'
+        '/api/transactions/:path*',
+        '/api/aiRoute'
     ]
 }
