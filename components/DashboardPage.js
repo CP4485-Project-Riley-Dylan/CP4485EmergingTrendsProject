@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import SpendingCharts from "./SpendingCharts";
 
 export default function DashboardPage() {
   const [aiData, setAiData] = useState(null);
@@ -54,12 +55,7 @@ export default function DashboardPage() {
         <p className="text-sm sm:text-base text-muted-foreground">Here's your financial overview.</p>
       </section>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-        <div className="rounded-3xl bg-card p-5 border border-border">Charts will go here</div>
-        <div className="rounded-3xl bg-card p-5 border border-border">Charts will go here</div>
-        <div className="rounded-3xl bg-card p-5 border border-border">Charts will go here</div>
-        <div className="rounded-3xl bg-card p-5 border border-border">Charts will go here</div>
-      </section>
+      <SpendingCharts transactions={transactions} />
 
       <div className="insight-container p-6 bg-white rounded-xl shadow-md border border-gray-100 mt-6 mb-12">
 
