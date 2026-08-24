@@ -4,7 +4,18 @@ This project is a budgeting application developed for the **CP4485 Emerging Tren
 
 ## Features
 
-- TODO
+- User authentication with Google OAuth
+- Add, edit, and delete transactions
+- Track income and expenses by category
+- AI-generated budget insights and financial health scoring
+- **Spending analytics dashboard** (special feature — see below)
+- 
+## Special Feature: Spending Analytics Dashboard
+The dashboard includes an analytics section built with **Recharts** that visualizes a user's transaction data:
+- Summary cards for total income, total expenses, net balance, and top spending category
+- A pie chart breaking down expenses by category
+- A line chart showing spending trends over time
+Charts are generated client-side from existing transaction data, turning raw history into an at-a-glance financial overview.
 
 ## Tech Stack
 
